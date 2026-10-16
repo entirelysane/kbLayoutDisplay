@@ -36,10 +36,6 @@ PluginComponent {
         return rule ? rule.displayText : layoutName;
     }
 
-    Component.onCompleted: {
-        console.error("My plugin: component loaded");
-    }
-
     horizontalBarPill: Component {
         Row {
             spacing: Theme.spacingS
