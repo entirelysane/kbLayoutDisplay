@@ -15,8 +15,6 @@ PluginComponent {
     property var layoutNames: []
     property int currentLayoutIndex: 0
 
-    property string displayText: pluginData.displayText || "Hello"
-    
     property bool popupVisible: false
     property string popupText: ""
 
