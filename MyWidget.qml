@@ -9,6 +9,9 @@ import Quickshell.Wayland
 
 PluginComponent {
     id: root
+  
+    readonly property int barWidgetFontSize: pluginData.barWidgetFontSize ?? 12
+
     property var layoutNames: []
     property int currentLayoutIndex: 0
 
@@ -35,16 +38,9 @@ PluginComponent {
         Row {
             spacing: Theme.spacingS
 
-            DankIcon {
-                name: "widgets"
-                size: Theme.iconSize
-                color: Theme.primary
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
             StyledText {
                 text: root.layoutText
-                font.pixelSize: Theme.fontSizeMedium
+                font.pixelSize: root.barWidgetFontSize
                 color: Theme.surfaceText
                 anchors.verticalCenter: parent.verticalCenter
             }
@@ -55,16 +51,9 @@ PluginComponent {
         Column {
             spacing: Theme.spacingXS
 
-            DankIcon {
-                name: "widgets"
-                size: Theme.iconSize
-                color: Theme.primary
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-
             StyledText {
                 text: root.layoutText
-                font.pixelSize: Theme.fontSizeSmall
+                font.pixelSize: root.barWidgetFontSize
                 color: Theme.surfaceText
                 anchors.horizontalCenter: parent.horizontalCenter
             }
