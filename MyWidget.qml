@@ -7,6 +7,8 @@ import Quickshell.Io
 import Quickshell
 import Quickshell.Wayland
 
+import "./layouts.js" as Layouts;
+
 PluginComponent {
     id: root
 
@@ -21,17 +23,19 @@ PluginComponent {
     property bool popupVisible: false
     property string popupText: ""
 
-    property string layoutText: {
-        if (layoutNames.length === 0)
-            return "???"
+    readonly property string layoutText: {
+      if (layoutNames.length === 0)
+          return "???";
 
-        const name = layoutNames[currentLayoutIndex] || ""
-
-        return name.startsWith("Russian") ? "RU"
-            : name.startsWith("English") ? "EN"
-            : name
+      const name = layoutNames[currentLayoutIndex] || "";
+      return getLayoutText(Layouts.widgetLayouts, name);
     }
 
+    function getLayoutText(rules, layoutName) {
+      const rule = rules.find(item => layoutName.startsWith(item.match));
+      return rule ? rule.displayText : layoutName;
+    }
+ 
     Component.onCompleted: {
         console.error("My plugin: component loaded")
     }
@@ -84,10 +88,14 @@ PluginComponent {
                         root.layoutNames = state.names
                         root.currentLayoutIndex = state.current_idx
                     } else if (event.KeyboardLayoutSwitched) {
-                        root.currentLayoutIndex = event.KeyboardLayoutSwitched.idx
-                        root.popupText = root.layoutText
-                        root.popupVisible = true
-                        popupTimer.restart()
+                      root.currentLayoutIndex = event.KeyboardLayoutSwitched.idx
+                      root.popupText = root.getLayoutText(
+                        Layouts.popupLayouts,
+                        root.layoutNames[root.currentLayoutIndex] || ""
+                      );
+
+                      root.popupVisible = true
+                      popupTimer.restart()
                     }
                 } catch (error) {
                     console.error("myPlugin: failed to parse Niri event:", error)
