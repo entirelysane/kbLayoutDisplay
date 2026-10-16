@@ -9,9 +9,11 @@ import Quickshell.Wayland
 
 PluginComponent {
     id: root
-  
+
     readonly property int barWidgetFontSize: pluginData.barWidgetFontSize ?? 12
     readonly property int popupTextFontSize: pluginData.popupTextFontSize ?? 20
+    readonly property string popupPosition: pluginData.popupPosition ?? "bottom"
+    readonly property int popupMargin: Number(pluginData.popupMargin ?? 100)
 
     property var layoutNames: []
     property int currentLayoutIndex: 0
@@ -20,18 +22,19 @@ PluginComponent {
     property string popupText: ""
 
     property string layoutText: {
-      if (layoutNames.length === 0)
-        return "???"
+        if (layoutNames.length === 0)
+            return "???"
 
-      const name = layoutNames[currentLayoutIndex] || ""
-      return name.startsWith("Russian") ? "RU"
-        : name.startsWith("English") ? "EN"
-        : name
+        const name = layoutNames[currentLayoutIndex] || ""
+
+        return name.startsWith("Russian") ? "RU"
+            : name.startsWith("English") ? "EN"
+            : name
     }
 
     Component.onCompleted: {
-      console.error("My plugin: component loaded")
-    } 
+        console.error("My plugin: component loaded")
+    }
 
     horizontalBarPill: Component {
         Row {
@@ -60,77 +63,101 @@ PluginComponent {
     }
 
     Timer {
-      id: popupTimer
-      interval: 1000
-      onTriggered: root.popupVisible = false
+        id: popupTimer
+        interval: 1000
+        onTriggered: root.popupVisible = false
     }
 
     Process {
-      id: niriEvents
+        id: niriEvents
 
-      command: ["niri", "msg", "--json", "event-stream"]
-      running: true
+        command: ["niri", "msg", "--json", "event-stream"]
+        running: true
 
-      stdout: SplitParser {
-         onRead: data => {
-             try {
-                 const event = JSON.parse(data)
+        stdout: SplitParser {
+            onRead: data => {
+                try {
+                    const event = JSON.parse(data)
 
-                 if (event.KeyboardLayoutsChanged) {
-                     const state = event.KeyboardLayoutsChanged.keyboard_layouts
-                     root.layoutNames = state.names
-                     root.currentLayoutIndex = state.current_idx
-                 } else if (event.KeyboardLayoutSwitched) {
-                   root.currentLayoutIndex = event.KeyboardLayoutSwitched.idx
-                   root.popupText = root.layoutText
-                   root.popupVisible = true
-                   popupTimer.restart()
-                 }
-             } catch (error) {
-                 console.error("myPlugin: failed to parse Niri event:", error)
-             }
-         }
-      }
+                    if (event.KeyboardLayoutsChanged) {
+                        const state = event.KeyboardLayoutsChanged.keyboard_layouts
+                        root.layoutNames = state.names
+                        root.currentLayoutIndex = state.current_idx
+                    } else if (event.KeyboardLayoutSwitched) {
+                        root.currentLayoutIndex = event.KeyboardLayoutSwitched.idx
+                        root.popupText = root.layoutText
+                        root.popupVisible = true
+                        popupTimer.restart()
+                    }
+                } catch (error) {
+                    console.error("myPlugin: failed to parse Niri event:", error)
+                }
+            }
+        }
     }
 
     PanelWindow {
-      id: popup
+        id: popup
 
-      visible: root.popupVisible
+        visible: root.popupVisible
 
-      anchors {
-          top: true
-          bottom: true
-          left: true
-          right: true
-      }
+        anchors {
+            top: true
+            bottom: true
+            left: true
+            right: true
+        }
 
-      color: "transparent"
-      exclusiveZone: 0
+        color: "transparent"
+        exclusiveZone: 0
 
-      WlrLayershell.layer: WlrLayer.Overlay
-      WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
+        WlrLayershell.layer: WlrLayer.Overlay
+        WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
 
-      Rectangle {
-          anchors.centerIn: parent
+        Rectangle {
+            id: popupBox
 
-          width: popupLabel.implicitWidth + 64
-          height: popupLabel.implicitHeight + 40
-          radius: Theme.cornerRadius
-          color: Theme.surface
-          border.color: Theme.outline
-          border.width: 1
+            width: popupLabel.implicitWidth + 64
+            height: popupLabel.implicitHeight + 40
 
-          StyledText {
-              id: popupLabel
+            radius: Theme.cornerRadius
+            color: Theme.surface
+            border.color: Theme.outline
+            border.width: 1
 
-              anchors.centerIn: parent
+            x: {
+                switch (root.popupPosition) {
+                case "left":
+                    return root.popupMargin
+                case "right":
+                    return parent.width - width - root.popupMargin
+                default:
+                    return (parent.width - width) / 2
+                }
+            }
 
-              text: root.popupText
-              font.pixelSize: root.popupTextFontSize
-              font.weight: Font.Bold
-             color: Theme.surfaceText
-          }
-      }
-  }
+            y: {
+                switch (root.popupPosition) {
+                case "top":
+                    return root.popupMargin
+                case "bottom":
+                    return parent.height - height - root.popupMargin
+                default:
+                    return (parent.height - height) / 2
+                }
+            }
+
+            StyledText {
+                id: popupLabel
+
+                anchors.centerIn: parent
+
+                text: root.popupText
+                font.pixelSize: root.popupTextFontSize
+                font.weight: Font.Bold
+                color: Theme.surfaceText
+            }
+        }
+    }
 }
+
