@@ -11,6 +11,7 @@ PluginComponent {
     id: root
   
     readonly property int barWidgetFontSize: pluginData.barWidgetFontSize ?? 12
+    readonly property int popupTextFontSize: pluginData.popupTextFontSize ?? 20
 
     property var layoutNames: []
     property int currentLayoutIndex: 0
@@ -126,7 +127,7 @@ PluginComponent {
               anchors.centerIn: parent
 
               text: root.popupText
-              font.pixelSize: 32
+              font.pixelSize: root.popupTextFontSize
               font.weight: Font.Bold
              color: Theme.surfaceText
           }

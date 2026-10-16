@@ -16,4 +16,14 @@ PluginSettings {
       maximum: 32
       unit: " px"
     }
+  
+    SliderSetting {
+      settingKey: "popupTextFontSize"
+      description: "Font size in popup notification"
+      label: "Popup text font size"
+      defaultValue: 20
+      minimum: 8
+      maximum: 100
+      unit: " px"
+    }
 }
