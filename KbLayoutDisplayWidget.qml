@@ -91,7 +91,7 @@ PluginComponent {
                         popupTimer.restart();
                     }
                 } catch (error) {
-                    console.error("myPlugin: failed to parse Niri event:", error);
+                    console.error("kbLayoutDisplay: failed to parse Niri event:", error);
                 }
             }
         }

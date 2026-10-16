@@ -1,12 +1,12 @@
 {
-	"id": "myPlugin",
-	"name": "My Plugin",
-	"description": "What this plugin does",
+	"id": "kbLayoutDisplay",
+	"name": "Keyboard Layout Display",
+	"description": "Displays the current keyboard layout in the bar and shows a popup on layout switch",
 	"version": "1.0.0",
-	"author": "Your Name",
-	"icon": "widgets",
+	"author": "entirelysane",
+	"icon": "widget",
 	"type": "widget",
-	"component": "./MyWidget.qml",
-	"settings": "./MySettings.qml",
+	"component": "./KbLayoutDisplayWidget.qml",
+	"settings": "./KbLayoutDisplaySettings.qml",
 	"permissions": ["settings_read", "settings_write"]
 }
