@@ -66,4 +66,3 @@ PluginSettings {
         unit: " px"
     }
 }
-

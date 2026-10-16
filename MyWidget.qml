@@ -7,7 +7,7 @@ import Quickshell.Io
 import Quickshell
 import Quickshell.Wayland
 
-import "./layouts.js" as Layouts;
+import "./layouts.js" as Layouts
 
 PluginComponent {
     id: root
@@ -24,20 +24,20 @@ PluginComponent {
     property string popupText: ""
 
     readonly property string layoutText: {
-      if (layoutNames.length === 0)
-          return "???";
+        if (layoutNames.length === 0)
+            return "???";
 
-      const name = layoutNames[currentLayoutIndex] || "";
-      return getLayoutText(Layouts.widgetLayouts, name);
+        const name = layoutNames[currentLayoutIndex] || "";
+        return getLayoutText(Layouts.widgetLayouts, name);
     }
 
     function getLayoutText(rules, layoutName) {
-      const rule = rules.find(item => layoutName.startsWith(item.match));
-      return rule ? rule.displayText : layoutName;
+        const rule = rules.find(item => layoutName.startsWith(item.match));
+        return rule ? rule.displayText : layoutName;
     }
- 
+
     Component.onCompleted: {
-        console.error("My plugin: component loaded")
+        console.error("My plugin: component loaded");
     }
 
     horizontalBarPill: Component {
@@ -81,24 +81,21 @@ PluginComponent {
         stdout: SplitParser {
             onRead: data => {
                 try {
-                    const event = JSON.parse(data)
+                    const event = JSON.parse(data);
 
                     if (event.KeyboardLayoutsChanged) {
-                        const state = event.KeyboardLayoutsChanged.keyboard_layouts
-                        root.layoutNames = state.names
-                        root.currentLayoutIndex = state.current_idx
+                        const state = event.KeyboardLayoutsChanged.keyboard_layouts;
+                        root.layoutNames = state.names;
+                        root.currentLayoutIndex = state.current_idx;
                     } else if (event.KeyboardLayoutSwitched) {
-                      root.currentLayoutIndex = event.KeyboardLayoutSwitched.idx
-                      root.popupText = root.getLayoutText(
-                        Layouts.popupLayouts,
-                        root.layoutNames[root.currentLayoutIndex] || ""
-                      );
+                        root.currentLayoutIndex = event.KeyboardLayoutSwitched.idx;
+                        root.popupText = root.getLayoutText(Layouts.popupLayouts, root.layoutNames[root.currentLayoutIndex] || "");
 
-                      root.popupVisible = true
-                      popupTimer.restart()
+                        root.popupVisible = true;
+                        popupTimer.restart();
                     }
                 } catch (error) {
-                    console.error("myPlugin: failed to parse Niri event:", error)
+                    console.error("myPlugin: failed to parse Niri event:", error);
                 }
             }
         }
@@ -136,22 +133,22 @@ PluginComponent {
             x: {
                 switch (root.popupPosition) {
                 case "left":
-                    return root.popupMargin
+                    return root.popupMargin;
                 case "right":
-                    return parent.width - width - root.popupMargin
+                    return parent.width - width - root.popupMargin;
                 default:
-                    return (parent.width - width) / 2
+                    return (parent.width - width) / 2;
                 }
             }
 
             y: {
                 switch (root.popupPosition) {
                 case "top":
-                    return root.popupMargin
+                    return root.popupMargin;
                 case "bottom":
-                    return parent.height - height - root.popupMargin
+                    return parent.height - height - root.popupMargin;
                 default:
-                    return (parent.height - height) / 2
+                    return (parent.height - height) / 2;
                 }
             }
 
@@ -168,4 +165,3 @@ PluginComponent {
         }
     }
 }
-
