@@ -72,4 +72,11 @@ PluginSettings {
         description: "Is widget visible?"
         defaultValue: true
     }
+
+    ToggleSetting {
+        settingKey: "isPopupVisible"
+        label: "Popup visibility"
+        description: "Is popup visible?"
+        defaultValue: true
+    }
 }

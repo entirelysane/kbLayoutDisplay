@@ -17,6 +17,7 @@ PluginComponent {
     readonly property string popupPosition: pluginData.popupPosition ?? "bottom"
     readonly property int popupMargin: Number(pluginData.popupMargin ?? 100)
     readonly property bool isWidgetVisible: pluginData.isWidgetVisible ?? true
+    readonly property bool isPopupVisible: pluginData.isPopupVisible ?? true
 
     property var layoutNames: []
     property int currentLayoutIndex: 0
@@ -103,7 +104,7 @@ PluginComponent {
     PanelWindow {
         id: popup
 
-        visible: root.popupVisible
+        visible: root.popupVisible && root.isPopupVisible
 
         anchors {
             top: true
