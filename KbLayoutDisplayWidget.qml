@@ -101,6 +101,7 @@ PluginComponent {
 
     PanelWindow {
         id: popup
+        screen: root.parentScreen
         visible: root.popupVisible && root.isPopupVisible
 
         anchors {
