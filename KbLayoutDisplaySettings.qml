@@ -7,6 +7,52 @@ PluginSettings {
     id: root
     pluginId: "kbLayoutDisplay"
 
+    // visibility
+    StyledText {
+        width: parent.width
+        text: "Visibility"
+        font.pixelSize: Theme.fontSizeLarge
+        font.weight: Font.Bold
+        color: Theme.surfaceText
+    }
+
+    Rectangle {
+        width: parent.width
+        height: 1
+        color: Theme.outline
+        opacity: 0.3
+    }
+
+    ToggleSetting {
+        settingKey: "isWidgetVisible"
+        label: "Widget visibility"
+        description: "Is widget visible?"
+        defaultValue: true
+    }
+
+    ToggleSetting {
+        settingKey: "isPopupVisible"
+        label: "Popup visibility"
+        description: "Is popup visible?"
+        defaultValue: true
+    }
+
+    // widget
+    StyledText {
+        width: parent.width
+        text: "Widget"
+        font.pixelSize: Theme.fontSizeLarge
+        font.weight: Font.Bold
+        color: Theme.surfaceText
+    }
+
+    Rectangle {
+        width: parent.width
+        height: 1
+        color: Theme.outline
+        opacity: 0.3
+    }
+
     SliderSetting {
         settingKey: "barWidgetFontSize"
         description: "Font size in bar widget"
@@ -15,6 +61,29 @@ PluginSettings {
         minimum: 8
         maximum: 32
         unit: " px"
+    }
+
+    ColorSetting {
+        settingKey: "widgetTextColor"
+        label: "Widget text color"
+        description: "Text color of widget"
+        defaultValue: "#ffffff"
+    }
+
+    // popup
+    StyledText {
+        width: parent.width
+        text: "Popup"
+        font.pixelSize: Theme.fontSizeLarge
+        font.weight: Font.Bold
+        color: Theme.surfaceText
+    }
+
+    Rectangle {
+        width: parent.width
+        height: 1
+        color: Theme.outline
+        opacity: 0.3
     }
 
     SliderSetting {
@@ -66,20 +135,6 @@ PluginSettings {
         unit: " px"
     }
 
-    ToggleSetting {
-        settingKey: "isWidgetVisible"
-        label: "Widget visibility"
-        description: "Is widget visible?"
-        defaultValue: true
-    }
-
-    ToggleSetting {
-        settingKey: "isPopupVisible"
-        label: "Popup visibility"
-        description: "Is popup visible?"
-        defaultValue: true
-    }
-
     ColorSetting {
         settingKey: "popupBackgroundColor"
         label: "Popup background color"
@@ -102,12 +157,5 @@ PluginSettings {
         minimum: 0
         maximum: 500
         unit: " px"
-    }
-
-    ColorSetting {
-        settingKey: "widgetTextColor"
-        label: "Widget text color"
-        description: "Text color of widget"
-        defaultValue: "#ffffff"
     }
 }
