@@ -1,5 +1,7 @@
 # KbLayoutDisplay
 
+![](./assets/kblayoutdisplay-preview.webp)
+
 DankMaterialShell widget for displaying current keyboard layout in the bar and showing popup notification when keyboard layout changes.
 
 ## Features
