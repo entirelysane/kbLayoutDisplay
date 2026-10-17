@@ -15,12 +15,9 @@ DankMaterialShell widget for displaying current keyboard layout in the bar and s
 
 ## Requirements
 
-Now plugin works only with niri
-
 - DankMaterialShell
-- Niri
 
-Tested with niri v.26.04 and dank material shell v1.6.3.
+Tested with DankMaterialShell v1.6.3 on niri v.26.04.
 
 ## Installation
 
@@ -69,6 +66,6 @@ If no rule matches, the original layout name will be displayed.
 ## Project structure
 
 - `plugin.json` - plugin metadata
-- `KbLayoutDisplayWidget.qml` - bar widget, niri event handling and popup notifcation.
+- `KbLayoutDisplayWidget.qml` - bar widget, layout handling (via DMS) and popup notifcation.
 - `KbLayoutDisplaySettings.qml` - plugin settings UI.
 - `layouts.js` - keyboard layout matching rules and display labels.
