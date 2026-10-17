@@ -13,19 +13,20 @@ PluginComponent {
     id: root
 
     readonly property int barWidgetFontSize: pluginData.barWidgetFontSize ?? 12
+    readonly property bool isWidgetVisible: pluginData.isWidgetVisible ?? true
+    readonly property color widgetTextColor: pluginData.widgetTextColor ?? Theme.primary
+
     readonly property int popupTextFontSize: pluginData.popupTextFontSize ?? 20
     readonly property string popupPosition: pluginData.popupPosition ?? "bottom"
-    readonly property int popupMargin: Number(pluginData.popupMargin ?? 100)
-    readonly property bool isWidgetVisible: pluginData.isWidgetVisible ?? true
-    readonly property bool isPopupVisible: pluginData.isPopupVisible ?? true
     readonly property color popupBackgroundColor: pluginData.popupBackgroundColor ?? Theme.surface
-    readonly property color widgetTextColor: pluginData.widgetTextColor ?? Theme.primary
+    readonly property color popupBorderColor: pluginData.popupBorderColor ?? "transparent"
+    readonly property int popupMargin: Number(pluginData.popupMargin ?? 100)
+    readonly property bool isPopupVisible: pluginData.isPopupVisible ?? true
+    property bool popupVisible: false
+    property string popupText: ""
 
     property var layoutNames: []
     property int currentLayoutIndex: 0
-
-    property bool popupVisible: false
-    property string popupText: ""
 
     visible: root.isWidgetVisible
 
@@ -129,7 +130,7 @@ PluginComponent {
 
             radius: Theme.cornerRadius
             color: root.popupBackgroundColor
-            border.color: Theme.outline
+            border.color: root.popupBorderColor
             border.width: 1
 
             x: {

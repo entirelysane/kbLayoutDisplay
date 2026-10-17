@@ -88,6 +88,13 @@ PluginSettings {
     }
 
     ColorSetting {
+        settingKey: "popupBorderColor"
+        label: "Popup border color"
+        description: "Border color of popup"
+        defaultValue: "transparent"
+    }
+
+    ColorSetting {
         settingKey: "widgetTextColor"
         label: "Widget text color"
         description: "Text color of widget"
