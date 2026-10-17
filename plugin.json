@@ -12,7 +12,7 @@
 	"category": "appearance",
 	"repo": "https://github.com/entirelysane/kbLayoutDisplay",
 	"permissions": ["settings_read", "settings_write"],
-	"compositors": ["any"],
+	"compositors": ["niri", "hyprland", "sway", "mango", "aqueous"],
 	"distro": ["any"],
 	"screenshot": "https://raw.githubusercontent.com/entirelysane/kbLayoutDisplay/180d039840905b94d0a5b405b396f631781a37df/assets/kblayoutdisplay-preview.webp",
 	"requires_dms": ">=1.7.0"
