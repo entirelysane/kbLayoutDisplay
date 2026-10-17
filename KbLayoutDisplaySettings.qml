@@ -86,4 +86,11 @@ PluginSettings {
         description: "Background color of the layout notification"
         defaultValue: "#302840"
     }
+
+    ColorSetting {
+        settingKey: "widgetTextColor"
+        label: "Widget text color"
+        description: "Text color of widget"
+        defaultValue: "#ffffff"
+    }
 }

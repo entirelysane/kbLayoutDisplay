@@ -19,6 +19,7 @@ PluginComponent {
     readonly property bool isWidgetVisible: pluginData.isWidgetVisible ?? true
     readonly property bool isPopupVisible: pluginData.isPopupVisible ?? true
     readonly property color popupBackgroundColor: pluginData.popupBackgroundColor ?? Theme.surface
+    readonly property color widgetTextColor: pluginData.widgetTextColor ?? Theme.primary
 
     property var layoutNames: []
     property int currentLayoutIndex: 0
@@ -48,7 +49,7 @@ PluginComponent {
             StyledText {
                 text: root.layoutText
                 font.pixelSize: root.barWidgetFontSize
-                color: Theme.surfaceText
+                color: root.widgetTextColor
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
@@ -61,7 +62,7 @@ PluginComponent {
             StyledText {
                 text: root.layoutText
                 font.pixelSize: root.barWidgetFontSize
-                color: Theme.surfaceText
+                color: root.widgetTextColor
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
