@@ -11,11 +11,12 @@ import "./layouts.js" as Layouts
 PluginComponent {
     id: root
 
-    readonly property int barWidgetFontSize: pluginData.barWidgetFontSize ?? 12
+    readonly property int barWidgetFontSize: pluginData.barWidgetFontSize ?? Theme.fontSizeMedium
+
     readonly property bool isWidgetVisible: pluginData.isWidgetVisible ?? true
     readonly property color widgetTextColor: pluginData.widgetTextColor ?? Theme.primary
 
-    readonly property int popupTextFontSize: pluginData.popupTextFontSize ?? 20
+    readonly property int popupTextFontSize: pluginData.popupTextFontSize ?? Theme.fontSizeLarge
     readonly property string popupPosition: pluginData.popupPosition ?? "bottom"
     readonly property color popupBackgroundColor: pluginData.popupBackgroundColor ?? Theme.surface
     readonly property color popupBorderColor: pluginData.popupBorderColor ?? "transparent"
@@ -122,8 +123,8 @@ PluginComponent {
         Rectangle {
             id: popupBox
 
-            width: popupLabel.implicitWidth + 64
-            height: popupLabel.implicitHeight + 40
+            width: popupLabel.implicitWidth + Theme.spacingXL * 2
+            height: popupLabel.implicitHeight + Theme.spacingXL * 2
 
             radius: Theme.cornerRadius
             color: root.popupBackgroundColor
