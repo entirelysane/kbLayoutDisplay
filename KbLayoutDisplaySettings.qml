@@ -67,7 +67,7 @@ PluginSettings {
         settingKey: "widgetTextColor"
         label: "Widget text color"
         description: "Text color of widget"
-        defaultValue: "#ffffff"
+        defaultValue: Theme.primary
     }
 
     // popup
@@ -139,7 +139,7 @@ PluginSettings {
         settingKey: "popupBackgroundColor"
         label: "Popup background color"
         description: "Background color of the layout notification"
-        defaultValue: "#302840"
+        defaultValue: Theme.surface
     }
 
     ColorSetting {
