@@ -15,9 +15,12 @@ DankMaterialShell widget for displaying current keyboard layout in the bar and s
 
 ## Requirements
 
-- DankMaterialShell
+- DankMaterialShell **latest development version** (built from the latest `master`).
+- A compatible Wayland compositor.
 
-Tested with DankMaterialShell v1.6.3 on niri v.26.04.
+> **Note:** This plugin uses `KeyboardLayoutService`, which is available in the latest development version of DankMaterialShell. Older stable releases, including v1.6.3, are not supported.
+
+Tested with DankMaterialShell `v1.6.0-568-gae361e37f` on niri `v26.04`.
 
 ## Installation
 

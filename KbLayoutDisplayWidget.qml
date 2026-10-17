@@ -1,7 +1,5 @@
 import QtQuick
 import Quickshell
-import Quickshell.Hyprland
-import Quickshell.I3
 import qs.Common
 import qs.Services
 import qs.Widgets
@@ -28,26 +26,11 @@ PluginComponent {
     property bool popupVisible: false
     property string popupText: ""
 
-    property string polledLayout: ""
     property string lastLayout: ""
 
     visible: root.isWidgetVisible
 
-    readonly property string currentLayout: {
-        if (CompositorService.isAqueous)
-            return AqueousService.keyboardLayout;
-
-        if (CompositorService.isNiri)
-            return NiriService.getCurrentKeyboardLayoutName();
-
-        if (CompositorService.isMango)
-            return MangoService.currentKeyboardLayout;
-
-        if (CompositorService.isHyprland || CompositorService.isSway)
-            return root.polledLayout;
-
-        return "";
-    }
+    readonly property string currentLayout: KeyboardLayoutService.currentLayout
 
     readonly property string layoutText: {
         if (!currentLayout)
@@ -77,119 +60,10 @@ PluginComponent {
 
     QtObject {
         Component.onCompleted: {
+            KeyboardLayoutService.consumers++;
             root.lastLayout = root.currentLayout;
-
-            if (CompositorService.isHyprland || CompositorService.isSway)
-                root.updateLayout();
         }
-    }
-
-    function updateLayout() {
-        if (CompositorService.isSway) {
-            Proc.runCommand(null, ["swaymsg", "-t", "get_inputs", "-r"], (output, exitCode) => {
-                if (exitCode !== 0) {
-                    console.warn("KbLayoutDisplay: swaymsg failed");
-                    root.polledLayout = "Unknown";
-                    return;
-                }
-
-                try {
-                    const inputs = JSON.parse(output);
-                    const keyboard = inputs.find(item => item.type === "keyboard" && item.xkb_active_layout_name);
-
-                    root.polledLayout = keyboard ? keyboard.xkb_active_layout_name : "Unknown";
-                } catch (error) {
-                    console.warn("KbLayoutDisplay: failed to parse Sway inputs:", error);
-                    root.polledLayout = "Unknown";
-                }
-            });
-
-            return;
-        }
-
-        if (CompositorService.isHyprland) {
-            Proc.runCommand(null, ["hyprctl", "-j", "devices"], (output, exitCode) => {
-                if (exitCode !== 0) {
-                    console.warn("KbLayoutDisplay: hyprctl failed");
-                    root.polledLayout = "Unknown";
-                    return;
-                }
-
-                try {
-                    const devices = JSON.parse(output);
-                    const keyboard = devices.keyboards?.find(item => item.main === true);
-
-                    if (!keyboard) {
-                        root.polledLayout = "Unknown";
-                        return;
-                    }
-
-                    if (keyboard.active_keymap) {
-                        root.polledLayout = keyboard.active_keymap;
-                        return;
-                    }
-
-                    const layouts = keyboard.layout ? keyboard.layout.split(",") : [];
-                    const variants = (keyboard.variant ?? "").split(",");
-                    const index = keyboard.active_layout_index;
-
-                    if (Number.isInteger(index) && index >= 0 && index < layouts.length) {
-                        const layout = layouts[index];
-                        const variant = variants[index] ?? "";
-
-                        root.polledLayout = variant ? `${layout}-${variant}` : layout;
-                    } else {
-                        root.polledLayout = "Unknown";
-                    }
-                } catch (error) {
-                    console.warn("KbLayoutDisplay: failed to parse Hyprland devices:", error);
-                    root.polledLayout = "Unknown";
-                }
-            });
-        }
-    }
-
-    Connections {
-        target: CompositorService
-
-        function onCompositorChanged() {
-            root.updateLayout();
-        }
-    }
-
-    Connections {
-        target: CompositorService.isHyprland ? Hyprland : null
-        enabled: CompositorService.isHyprland
-
-        function onRawEvent(event) {
-            if (event.name === "activelayout")
-                root.updateLayout();
-        }
-    }
-
-    Loader {
-        active: CompositorService.isSway
-
-        sourceComponent: I3IpcListener {
-            subscriptions: ["input"]
-
-            onIpcEvent: event => {
-                if (event.type !== "input")
-                    return;
-
-                try {
-                    const payload = JSON.parse(event.data);
-                    if (payload.change !== "xkb_layout")
-                        return;
-
-                    const name = payload.input?.xkb_active_layout_name;
-                    if (name)
-                        root.polledLayout = name;
-                } catch (error) {
-                    console.warn("KbLayoutDisplay: failed to parse Sway input event:", error);
-                }
-            }
-        }
+        Component.onDestruction: KeyboardLayoutService.consumers--
     }
 
     horizontalBarPill: Component {
