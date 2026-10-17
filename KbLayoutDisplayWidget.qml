@@ -22,6 +22,9 @@ PluginComponent {
     readonly property color popupBorderColor: pluginData.popupBorderColor ?? "transparent"
     readonly property int popupMargin: Number(pluginData.popupMargin ?? 100)
     readonly property bool isPopupVisible: pluginData.isPopupVisible ?? true
+
+    readonly property int popupBorderWidth: pluginData.popupBorderWidth ?? 0
+
     property bool popupVisible: false
     property string popupText: ""
 
@@ -131,7 +134,7 @@ PluginComponent {
             radius: Theme.cornerRadius
             color: root.popupBackgroundColor
             border.color: root.popupBorderColor
-            border.width: 1
+            border.width: root.popupBorderWidth
 
             x: {
                 switch (root.popupPosition) {

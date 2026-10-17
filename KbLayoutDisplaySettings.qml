@@ -94,6 +94,16 @@ PluginSettings {
         defaultValue: "transparent"
     }
 
+    SliderSetting {
+        settingKey: "popupBorderWidth"
+        label: "Popup border width"
+        description: "Width of popup border"
+        defaultValue: 0
+        minimum: 0
+        maximum: 500
+        unit: " px"
+    }
+
     ColorSetting {
         settingKey: "widgetTextColor"
         label: "Widget text color"
