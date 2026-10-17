@@ -4,7 +4,7 @@
 	"description": "Displays the current keyboard layout in the bar and shows a popup on layout switch",
 	"version": "1.0.0",
 	"author": "entirelysane",
-	"icon": "widget",
+	"icon": "keyboard",
 	"type": "widget",
 	"component": "./KbLayoutDisplayWidget.qml",
 	"settings": "./KbLayoutDisplaySettings.qml",
