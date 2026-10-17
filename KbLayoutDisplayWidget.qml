@@ -18,6 +18,7 @@ PluginComponent {
     readonly property int popupMargin: Number(pluginData.popupMargin ?? 100)
     readonly property bool isWidgetVisible: pluginData.isWidgetVisible ?? true
     readonly property bool isPopupVisible: pluginData.isPopupVisible ?? true
+    readonly property color popupBackgroundColor: pluginData.popupBackgroundColor ?? Theme.surface
 
     property var layoutNames: []
     property int currentLayoutIndex: 0
@@ -126,7 +127,7 @@ PluginComponent {
             height: popupLabel.implicitHeight + 40
 
             radius: Theme.cornerRadius
-            color: Theme.surface
+            color: root.popupBackgroundColor
             border.color: Theme.outline
             border.width: 1
 

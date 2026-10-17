@@ -79,4 +79,11 @@ PluginSettings {
         description: "Is popup visible?"
         defaultValue: true
     }
+
+    ColorSetting {
+        settingKey: "popupBackgroundColor"
+        label: "Popup background color"
+        description: "Background color of the layout notification"
+        defaultValue: "#302840"
+    }
 }
