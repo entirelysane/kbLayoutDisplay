@@ -8,5 +8,11 @@
 	"type": "widget",
 	"component": "./KbLayoutDisplayWidget.qml",
 	"settings": "./KbLayoutDisplaySettings.qml",
-	"permissions": ["settings_read", "settings_write"]
+	"capabilities": ["dankbar-widget"],
+	"category": "appearance",
+	"repo": "https://github.com/entirelysane/kbLayoutDisplay",
+	"permissions": ["settings_read", "settings_write"],
+	"compositors": ["niri"],
+	"distro": ["any"],
+	"screenshot": "https://github.com/entirelysane/kbLayoutDisplay/blob/main/assets/kblayoutdisplay-preview.webp"
 }
