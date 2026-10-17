@@ -16,12 +16,15 @@ PluginComponent {
     readonly property int popupTextFontSize: pluginData.popupTextFontSize ?? 20
     readonly property string popupPosition: pluginData.popupPosition ?? "bottom"
     readonly property int popupMargin: Number(pluginData.popupMargin ?? 100)
+    readonly property bool isWidgetVisible: pluginData.isWidgetVisible ?? true
 
     property var layoutNames: []
     property int currentLayoutIndex: 0
 
     property bool popupVisible: false
     property string popupText: ""
+
+    visible: root.isWidgetVisible
 
     readonly property string layoutText: {
         if (layoutNames.length === 0)

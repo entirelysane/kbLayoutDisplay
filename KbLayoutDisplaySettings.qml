@@ -65,4 +65,11 @@ PluginSettings {
         maximum: 500
         unit: " px"
     }
+
+    ToggleSetting {
+        settingKey: "isWidgetVisible"
+        label: "Widget visibility"
+        description: "Is widget visible?"
+        defaultValue: true
+    }
 }
