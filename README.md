@@ -6,8 +6,10 @@ DankMaterialShell widget for displaying current keyboard layout in the bar and s
 
 - displays keyboard layout in dank bar widget
 - displays popup notification when keyboard layout changes
-- configurable popup position, margin and text size
-- configurable label for different keyboard labels
+- configurable widget font size and text color
+- configurable popup position, margin, text size, background and border
+- toggle the widget and the popup visibility independently
+- configurable label for different keyboard layouts
 
 ## Requirements
 
@@ -26,12 +28,30 @@ Tested with niri v.26.04 and dank material shell v1.6.3.
 
 ## Configuration
 
-| Option               | Default | Range                                      | Description                            |
-| -------------------- | ------- | ------------------------------------------ | -------------------------------------- |
-| Bar widget font size | 10px    | 8-32px                                     | Text size in the bar                   |
-| Popup text font size | 20px    | 8-100px                                    | Text size in the popup                 |
-| Popup position       | Bottom  | `Center`, `Top`, `Bottom`, `Left`, `Right` | Popup placement on screen              |
-| Popup margin         | 100px   | 0-500px                                    | Distance from the relevant screen edge |
+### Widget
+
+| Option               | Default   | Range  | Description                  |
+| -------------------- | --------- | ------ | ---------------------------- |
+| Bar widget font size | 10px      | 8-32px | Text size in the bar         |
+| Widget text color    | `#ffffff` | color  | Text color of the bar widget |
+
+### Popup
+
+| Option                 | Default       | Range                                      | Description                   |
+| ---------------------- | ------------- | ------------------------------------------ | ----------------------------- |
+| Popup text font size   | 20px          | 8-100px                                    | Text size in the popup        |
+| Popup position         | `Bottom`      | `Center`, `Top`, `Bottom`, `Left`, `Right` | Popup placement on screen     |
+| Popup margin           | 100px         | 0-500px                                    | Distance from the screen edge |
+| Popup background color | `#302840`     | color                                      | Background color of the popup |
+| Popup border color     | `transparent` | color                                      | Border color of the popup     |
+| Popup border width     | 0px           | 0-500px                                    | Width of the popup border     |
+
+### Visibility
+
+| Option            | Default | Range      | Description       |
+| ----------------- | ------- | ---------- | ----------------- |
+| Widget visibility | `on`    | `on`/`off` | Is widget visible |
+| Popup visibility  | `on`    | `on`/`off` | Is popup visible  |
 
 ## Custom layout labels
 
