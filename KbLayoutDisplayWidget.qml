@@ -33,16 +33,22 @@ PluginComponent {
 
     readonly property string currentLayout: KeyboardLayoutService.currentLayout
 
+    readonly property var layoutRules: pluginData.layoutRules ?? Layouts.defaultRules
+
     readonly property string layoutText: {
         if (!currentLayout)
             return "???";
 
-        return getLayoutText(Layouts.widgetLayouts, currentLayout);
+        return getLayoutText(layoutRules, "widget", currentLayout);
     }
 
-    function getLayoutText(rules, layoutName) {
-        const rule = rules.find(item => layoutName.startsWith(item.match));
-        return rule ? rule.displayText : layoutName;
+    function getLayoutText(rules, field, layoutName) {
+        let best = null;
+        for (const rule of rules) {
+            if (layoutName.startsWith(rule.match) && (!best || rule.match.length > best.match.length))
+                best = rule;
+        }
+        return (best && best[field]) || layoutName;
     }
 
     onCurrentLayoutChanged: {
@@ -54,7 +60,7 @@ PluginComponent {
         if (!name || name === "Unknown" || !hadKnownLayout)
             return;
 
-        root.popupText = root.getLayoutText(Layouts.popupLayouts, name);
+        root.popupText = root.getLayoutText(root.layoutRules, "popup", name);
         root.popupVisible = true;
         popupTimer.restart();
     }
